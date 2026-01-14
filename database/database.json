@@ -1,0 +1,60 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "account": "admin",
+      "password": "123",
+      "role": "admin",
+      "savedLinks": []
+    },
+    {
+      "id": 1768200070167,
+      "account": "Tvin2704",
+      "password": "Vinh27042006",
+      "role": "admin",
+      "savedLinks": [
+        1768201166160,
+        1768210799351,
+        1768210958262,
+        1768210762129,
+        1768376667349,
+        1768386290453
+      ]
+    },
+    {
+      "id": 1768200996093,
+      "account": "Tvin274",
+      "password": "Vinh27042006",
+      "role": "user",
+      "savedLinks": []
+    },
+    {
+      "id": 1768211139989,
+      "account": "Vinhday",
+      "password": "Vinh27042006",
+      "role": "user",
+      "savedLinks": [
+        1768227363323,
+        1768327176247
+      ]
+    }
+  ],
+  "documents": [
+    {
+      "category": "vào10",
+      "subject": "Sinh Học",
+      "title": "moon",
+      "link": "https://drive.google.com/file/d/1-neI3bWNo1UlrxCkxiSiWKehOUwbrtut/view",
+      "id": 1768201166160,
+      "sticker": "https://cdn-icons-png.flaticon.com/512/3389/3389081.png"
+    },
+    {
+      "category": "thpt",
+      "subject": "Vật Lí",
+      "title": "phong tỏa vật lý 10 chương trình mới tập 2",
+      "link": "https://drive.google.com/file/d/1-neI3bWNo1UlrxCkxiSiWKehOUwbrtut/view",
+      "id": 1768386290453,
+      "sticker": "https://cdn-icons-png.flaticon.com/512/3389/3389081.png"
+    }
+  ]
+}

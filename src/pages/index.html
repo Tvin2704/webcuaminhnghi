@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minhnghiskibidi - Study Space</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles/style.css" />
+    <style>
+      :root {
+        --primary: #ff6b81;
+        --accent: #7bed9f;
+        --bg-color: #f1f2f6;
+        --card-bg: #ffffff;
+        --text-main: #2f3542;
+      }
+
+      body {
+        font-family: "Nunito", sans-serif;
+        margin: 0;
+        padding: 20px 15px;
+        color: var(--text-main);
+        /* Background Doodle xịn xò giống trang Kho Của Tôi */
+        background-color: var(--bg-color);
+        background-image: url("/images/nghiskibidi.png");
+        background-blend-mode: overlay;
+        background-size: 400px;
+      }
+
+      .container {
+        max-width: 600px; /* Giới hạn chiều rộng giống dạng App mobile */
+        margin: 0 auto;
+      }
+
+      /* --- HEADER --- */
+      .header-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Đẩy sang 2 bên */
+        margin-bottom: 25px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 10px 15px;
+        border-radius: 50px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        backdrop-filter: blur(5px);
+      }
+
+      .brand-name {
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .btn-auth-pill {
+        padding: 6px 15px;
+        background: var(--primary);
+        color: white;
+        text-decoration: none;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        transition: 0.3s;
+        box-shadow: 0 2px 5px rgba(255, 107, 129, 0.4);
+      }
+      .btn-auth-pill:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(255, 107, 129, 0.6);
+      }
+
+      /* --- COUNTDOWN WIDGETS --- */
+      .timer-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 25px;
+      }
+
+      .timer-card {
+        background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+        color: white;
+        padding: 15px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(108, 92, 231, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+      .timer-card:nth-child(2) {
+        background: linear-gradient(135deg, #ff7675, #d63031);
+        box-shadow: 0 4px 10px rgba(214, 48, 49, 0.3);
+      }
+
+      .timer-title {
+        font-size: 0.8rem;
+        opacity: 0.9;
+        margin-bottom: 5px;
+        font-weight: 600;
+      }
+      .timer-count {
+        font-size: 1.1rem;
+        font-weight: 800;
+      }
+
+      /* Sticker trang trí chìm trong widget */
+      .widget-deco {
+        position: absolute;
+        bottom: -5px;
+        right: -5px;
+        font-size: 2.5rem;
+        opacity: 0.2;
+        transform: rotate(-15deg);
+      }
+
+      /* --- MAIN MENU GRID (APP ICONS) --- */
+      .menu-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 2 cột trên mọi màn hình */
+        gap: 15px;
+        margin-bottom: 25px;
+      }
+
+      .menu-card {
+        background: var(--card-bg);
+        border-radius: 24px;
+        padding: 20px 10px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--text-main);
+        transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Hiệu ứng nảy */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        border: 2px solid white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 140px;
+      }
+
+      .menu-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        border-color: var(--primary);
+      }
+
+      .menu-icon {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        margin-bottom: 10px;
+        filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1));
+      }
+
+      .menu-title {
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+
+      /* --- KHO CỦA TÔI (Archive) --- */
+      .archive-btn {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: white;
+        padding: 15px 25px;
+        border-radius: 20px;
+        text-decoration: none;
+        color: var(--text-main);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        margin-bottom: 25px;
+        transition: 0.3s;
+        border: 2px solid transparent;
+      }
+      .archive-btn:hover {
+        border-color: #f1c40f;
+        transform: scale(1.02);
+      }
+      .archive-content {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .archive-icon {
+        width: 40px;
+      }
+
+      /* --- FOOTER BUTTONS --- */
+      .footer-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 20px;
+      }
+      .btn-action {
+        flex: 1;
+        padding: 12px;
+        border-radius: 15px;
+        border: none;
+        font-weight: 800;
+        color: white;
+        cursor: pointer;
+        font-family: "Nunito", sans-serif;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: 0.2s;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      }
+      .btn-zalo {
+        background: #0088ff;
+      } /* Màu chuẩn Zalo */
+      .btn-donate {
+        background: #f1c40f;
+        color: #574b00;
+      } /* Màu vàng chanh */
+
+      .btn-action:active {
+        transform: scale(0.95);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header-box">
+        <div class="brand-name">
+          <span> MinhNghi</span>
+          <span style="color: #d0d06d; font-size: 0.8em">Skibidi</span>
+        </div>
+        <a href="/login.html" id="user-btn" class="btn-auth-pill">Đăng nhập</a>
+      </div>
+
+      <div class="timer-section">
+        <div class="timer-card">
+          <div class="widget-deco">🔥</div>
+          <div class="timer-title">Thi Vào 10</div>
+          <div class="timer-count" id="countdown-v10">...</div>
+        </div>
+        <div class="timer-card">
+          <div class="widget-deco">🎓</div>
+          <div class="timer-title">THPT QG</div>
+          <div class="timer-count" id="countdown-thpt">...</div>
+        </div>
+      </div>
+
+      <div class="menu-grid">
+        <a href="/subject-detail.html?type=vào10" class="menu-card">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/3062/3062634.png"
+            class="menu-icon"
+            alt="balo"
+          />
+          <div class="menu-title">TH Cơ Sở</div>
+        </a>
+
+        <a href="/subject-detail.html?type=thpt" class="menu-card">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/3135/3135810.png"
+            class="menu-icon"
+            alt="graduation"
+          />
+          <div class="menu-title">TH Phổ Thông</div>
+        </a>
+
+        <a href="/subject-detail.html?type=toeic" class="menu-card">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/2490/2490369.png"
+            class="menu-icon"
+            alt="note"
+          />
+          <div class="menu-title">TOEIC</div>
+        </a>
+
+        <a href="/subject-detail.html?type=ielts" class="menu-card">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/3207/3207736.png"
+            class="menu-icon"
+            alt="global"
+          />
+          <div class="menu-title">IELTS</div>
+        </a>
+      </div>
+
+      <a href="/my-archive.html" class="archive-btn">
+        <div class="archive-content">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/4645/4645223.png"
+            class="archive-icon"
+            alt="safe"
+          />
+          <div style="text-align: left">
+            <div style="font-weight: 800; font-size: 1rem">Kho Của Tôi</div>
+            <div style="font-size: 0.75rem; color: #7f8fa6">
+              Xem tài liệu đã lưu ❤️
+            </div>
+          </div>
+        </div>
+        <div style="font-size: 1.2rem">➔</div>
+      </a>
+
+      <div class="footer-actions">
+        <button
+          class="btn-action btn-zalo"
+          onclick="location.href='/zalo.html'"
+        >
+          💬 Nhóm Zalo
+        </button>
+        <button
+          class="btn-action btn-donate"
+          onclick="location.href='/donate.html'"
+        >
+          ☕ Donate
+        </button>
+      </div>
+    </div>
+
+    <script src="/scripts/main.js"></script>
+    <script>
+      // Logic kiểm tra User & Admin
+      function checkUserStatus() {
+        const user = localStorage.getItem("user");
+        const role = localStorage.getItem("role");
+        const btn = document.getElementById("user-btn");
+        const header = document.querySelector(".header-box");
+
+        if (user && btn) {
+          // Hiển thị tên rút gọn nếu dài quá
+          const displayName =
+            user.length > 8 ? user.substring(0, 8) + "..." : user;
+          btn.innerText = `Hi, ${displayName}`;
+
+          // Nếu là Admin thì hiện nút Đăng bài (nút tròn đỏ nhỏ bên cạnh)
+          if (role === "admin" || role === "editor") {
+            const uploadBtn = document.createElement("a");
+            uploadBtn.href = "/admin.html";
+            uploadBtn.innerText = "+";
+            uploadBtn.title = "Đăng bài mới";
+            uploadBtn.style.cssText = `
+                        display: inline-flex; align-items: center; justify-content: center;
+                        width: 30px; height: 30px; background: #2f3542; color: white;
+                        border-radius: 50%; text-decoration: none; font-weight: bold;
+                        margin-left: 8px; font-size: 1.2rem;
+                    `;
+            // Chèn vào ngay sau nút user
+            header.insertBefore(uploadBtn, btn.nextSibling);
+          }
+        }
+      }
+      checkUserStatus();
+
+      // Logic đếm ngược giả lập (Bạn có thể thay bằng code thật trong main.js)
+      // Đây chỉ là demo cho nó chạy để bạn thấy widget đẹp thế nào
+      function startTimer(id, dateStr) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        // Demo hiển thị ngày còn lại
+        const today = new Date();
+        const target = new Date(dateStr);
+        const diff = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
+        if (diff > 0) el.innerText = `${diff} ngày`;
+        else el.innerText = "Đã thi!";
+      }
+
+      // Giả sử ngày thi
+      startTimer("countdown-v10", "2026-06-10");
+      startTimer("countdown-thpt", "2026-06-28");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Hệ Thống Quản Trị</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #4834d4;
+        --danger: #eb4d4b;
+        --success: #6ab04c;
+        --bg: #f0f2f5;
+        --card-bg: #ffffff;
+      }
+
+      body {
+        font-family: "Nunito", sans-serif;
+        background-color: var(--bg);
+        margin: 0;
+        padding: 20px;
+        /* Đồng bộ Sticker chìm với các trang khác */
+        background-image: url("/images/nghiskibidi.png");
+        background-size: 400px;
+        background-blend-mode: overlay;
+        background-color: rgba(240, 242, 245, 0.94);
+      }
+
+      .container {
+        max-width: 700px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* --- CARD ĐĂNG BÀI --- */
+      .card {
+        background: var(--card-bg);
+        padding: 25px;
+        border-radius: 24px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        margin-bottom: 30px;
+        border: 2px solid white;
+      }
+
+      .card-header {
+        text-align: center;
+        margin-bottom: 25px;
+      }
+      .card-header h2 {
+        margin: 0;
+        color: var(--primary);
+        font-size: 1.5rem;
+        font-weight: 800;
+      }
+      .card-header p {
+        margin: 5px 0 0;
+        font-size: 0.85rem;
+        color: #777;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+      .full-width {
+        grid-column: 1 / -1;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        color: #555;
+        padding-left: 5px;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #edf2f7;
+        border-radius: 12px;
+        box-sizing: border-box;
+        font-size: 0.95rem;
+        font-family: inherit;
+        transition: 0.3s;
+        background: #f8fafc;
+      }
+
+      input:focus,
+      select:focus {
+        border-color: var(--primary);
+        outline: none;
+        background: white;
+      }
+
+      .btn-post {
+        width: 100%;
+        padding: 15px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        font-weight: 800;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 10px;
+        box-shadow: 0 4px 15px rgba(72, 52, 212, 0.3);
+      }
+      .btn-post:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(72, 52, 212, 0.4);
+      }
+      .btn-post:active {
+        transform: scale(0.98);
+      }
+
+      /* --- DANH SÁCH QUẢN LÝ --- */
+      .list-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        padding: 0 10px;
+      }
+      .list-header h3 {
+        margin: 0;
+        font-weight: 800;
+        color: #2d3436;
+      }
+
+      .doc-item {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        background: white;
+        padding: 15px 20px;
+        border-radius: 18px;
+        margin-bottom: 12px;
+        border: 1px solid rgba(0, 0, 0, 0.03);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        transition: 0.2s;
+      }
+      .doc-item:hover {
+        transform: scale(1.01);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      .doc-info h4 {
+        margin: 0 0 5px;
+        font-size: 1rem;
+        color: #2d3436;
+      }
+
+      /* Badge môn học & Loại */
+      .badge {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 8px;
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-right: 5px;
+      }
+      .badge-cat {
+        background: #e0e7ff;
+        color: #4338ca;
+      }
+      .badge-sub {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      .btn-del {
+        background: #fff1f2;
+        color: var(--danger);
+        border: none;
+        padding: 10px;
+        border-radius: 12px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .btn-del:hover {
+        background: var(--danger);
+        color: white;
+      }
+
+      .btn-home {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #777;
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+
+      /* --- MOBILE OPTIMIZATION --- */
+      @media (max-width: 480px) {
+        body {
+          padding: 15px 10px;
+        }
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+        .doc-item {
+          padding: 15px;
+        }
+        .doc-info h4 {
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h2>🚀 BẢNG ĐIỀU KHIỂN</h2>
+          <p>Thêm vũ khí mới cho các chiến thần đi học</p>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Chiến dịch</label>
+            <select id="category" onchange="toggleSubject()">
+              <option value="vào10">TH Cơ Sở</option>
+              <option value="thpt">TH Phổ Thông</option>
+              <option value="toeic">TOEIC</option>
+              <option value="ielts">IELTS</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="subject-group">
+            <label>Môn học</label>
+            <select id="subject">
+              <option value="Toán">Toán Học</option>
+              <option value="Ngữ Văn">Ngữ Văn</option>
+              <option value="Tiếng Anh">Tiếng Anh</option>
+              <option value="Sử Địa">Sử Địa</option>
+              <option value="Vật Lí">Vật Lí</option>
+              <option value="Sinh Học">Sinh Học</option>
+              <option value="Hóa Học">Hóa Học</option>
+            </select>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Tiêu đề tài liệu</label>
+            <input
+              type="text"
+              id="title"
+              placeholder="Ví dụ: Đề cương ôn thi giữa kì 2..."
+            />
+          </div>
+
+          <div class="form-group full-width">
+            <label>Link liên kết (Drive/Zalo/Web)</label>
+            <input
+              type="text"
+              id="link"
+              placeholder="https://drive.google.com/..."
+            />
+          </div>
+        </div>
+
+        <button class="btn-post" onclick="uploadDoc()">
+          CẬP NHẬT WEBSITE ⚡
+        </button>
+      </div>
+
+      <div class="list-header">
+        <h3>📂 KHO DỮ LIỆU</h3>
+        <span
+          id="doc-count"
+          style="
+            font-size: 0.8rem;
+            background: #ddd;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+          "
+          >0 file</span
+        >
+      </div>
+
+      <div id="list-container">
+        <p style="text-align: center; color: #999; padding: 20px">
+          Đang tải danh sách...
+        </p>
+      </div>
+
+      <a href="/" class="btn-home">← Quay lại trang chủ</a>
+    </div>
+
+    <script>
+      // Bảo mật lớp 2: Kiểm tra quyền Admin
+      const role = localStorage.getItem("role");
+      const user = localStorage.getItem("user");
+
+      if (!user || (role !== "admin" && role !== "editor")) {
+        alert("⚠️ Cảnh báo: Bạn không có quyền truy cập khu vực này!");
+        window.location.href = "/login.html";
+      }
+
+      function toggleSubject() {
+        const cat = document.getElementById("category").value;
+        // Ẩn môn học nếu là TOEIC/IELTS
+        document.getElementById("subject-group").style.display =
+          cat === "toeic" || cat === "ielts" ? "none" : "block";
+      }
+
+      async function uploadDoc() {
+        const btn = document.querySelector(".btn-post");
+        const data = {
+          category: document.getElementById("category").value,
+          subject:
+            document.getElementById("category").value === "toeic" ||
+            document.getElementById("category").value === "ielts"
+              ? "Chung"
+              : document.getElementById("subject").value,
+          title: document.getElementById("title").value.trim(),
+          link: document.getElementById("link").value.trim(),
+        };
+
+        if (!data.title || !data.link)
+          return alert("Sếp quên nhập tiêu đề hoặc link kìa!");
+
+        btn.innerText = "ĐANG ĐẨY LÊN...";
+        btn.disabled = true;
+
+        try {
+          const res = await fetch("/api/upload", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+          if (res.ok) {
+            alert("✅ Đã cập nhật thành công!");
+            document.getElementById("title").value = "";
+            document.getElementById("link").value = "";
+            loadData();
+          } else {
+            alert("❌ Lỗi rồi sếp ơi!");
+          }
+        } catch (err) {
+          alert("❌ Mất kết nối server!");
+        } finally {
+          btn.innerText = "CẬP NHẬT WEBSITE ⚡";
+          btn.disabled = false;
+        }
+      }
+
+      async function loadData() {
+        try {
+          const res = await fetch("/api/documents");
+          const docs = await res.json();
+          const container = document.getElementById("list-container");
+          document.getElementById(
+            "doc-count"
+          ).innerText = `${docs.length} file`;
+
+          if (docs.length === 0) {
+            container.innerHTML =
+              '<div style="text-align:center; padding:30px; color:#999;">Chưa có tài liệu nào được đăng.</div>';
+            return;
+          }
+
+          container.innerHTML = docs
+            .map(
+              (d) => `
+                    <div class="doc-item">
+                        <div class="doc-info">
+                            <h4>${d.title}</h4>
+                            <div>
+                                <span class="badge badge-cat">${d.category}</span>
+                                <span class="badge badge-sub">${d.subject}</span>
+                            </div>
+                        </div>
+                        <button class="btn-del" onclick="deleteDoc(${d.id})" title="Xóa tài liệu này">
+                            🗑️
+                        </button>
+                    </div>
+                `
+            )
+            .reverse()
+            .join("");
+        } catch (e) {
+          document.getElementById("list-container").innerHTML =
+            "Lỗi tải dữ liệu.";
+        }
+      }
+
+      async function deleteDoc(id) {
+        if (confirm("Xóa file này là không khôi phục được đâu sếp nhé?")) {
+          const res = await fetch(`/api/documents/${id}`, { method: "DELETE" });
+          if (res.ok) loadData();
+        }
+      }
+
+      // Khởi tạo
+      toggleSubject();
+      loadData();
+    </script>
+  </body>
+</html>

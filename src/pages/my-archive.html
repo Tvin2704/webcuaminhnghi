@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kho Của Tôi - Đã Lưu</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #ff4757;
+        --bg: #f8f9fa;
+        --text-dark: #2d3436;
+        --white: #ffffff;
+        --radius: 16px;
+      }
+
+      body {
+        background-color: var(--bg);
+        font-family: "Inter", sans-serif;
+        padding: 20px 15px;
+        margin: 0;
+        color: var(--text-dark);
+        /* --- STICKER CHÌM CUTE (DOODLE BACKGROUND) --- */
+        background-image: url("/images/nghiskibidi.png");
+        background-size: 400px;
+        background-blend-mode: overlay; /* Làm ảnh nền chìm xuống */
+        background-color: rgba(
+          248,
+          249,
+          250,
+          0.92
+        ); /* Phủ lớp màu trắng mờ 92% lên ảnh nền */
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: auto;
+        position: relative;
+        z-index: 1; /* Nổi lên trên hình nền */
+      }
+
+      /* Tiêu đề */
+      .header-title {
+        text-align: center;
+        margin-bottom: 30px;
+        background: white;
+        display: inline-block;
+        padding: 10px 30px;
+        border-radius: 50px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .header-title h2 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: var(--primary);
+      }
+
+      /* DANH SÁCH DẠNG HÀNG NGANG (LIST VIEW) */
+      #doc-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .doc-card {
+        display: grid;
+        grid-template-columns: 60px 1fr auto; /* Icon - Nội dung - Nút */
+        align-items: center;
+        gap: 15px;
+        background: var(--white);
+        padding: 15px 20px;
+        border-radius: var(--radius);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        border: 1px solid rgba(0, 0, 0, 0.02);
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .doc-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      /* Icon Folder 3D */
+      .item-sticker {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+      }
+
+      .doc-info h3 {
+        font-size: 1rem;
+        margin: 0;
+        color: var(--text-dark);
+        font-weight: 600;
+        line-height: 1.4;
+        text-align: left;
+      }
+
+      /* Tag môn học nhỏ xinh */
+      .subject-tag {
+        display: inline-block;
+        font-size: 0.75rem;
+        background: #ffeaa7;
+        color: #d63031;
+        padding: 3px 10px;
+        border-radius: 20px;
+        margin-top: 5px;
+        font-weight: 600;
+      }
+
+      /* Nút Mở Tài Liệu */
+      .btn-open {
+        padding: 10px 20px;
+        background: #ffeaa7;
+        color: #2d3436;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.9rem;
+        transition: 0.2s;
+        white-space: nowrap;
+        border: 2px solid #fdcb6e;
+      }
+      .btn-open:hover {
+        background: #fdcb6e;
+        transform: scale(1.05);
+      }
+
+      /* Nút Quay Lại */
+      .btn-back {
+        display: block;
+        width: 100%;
+        max-width: 200px;
+        margin: 40px auto 0;
+        padding: 12px;
+        border-radius: 30px;
+        border: none;
+        background: white;
+        color: var(--text-dark);
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .btn-back:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      /* EMPTY STATE */
+      .empty-state {
+        text-align: center;
+        padding: 50px 20px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: var(--radius);
+        backdrop-filter: blur(5px);
+      }
+
+      /* TỐI ƯU MOBILE */
+      @media (max-width: 480px) {
+        .doc-card {
+          padding: 15px;
+          grid-template-columns: 50px 1fr; /* Xuống dòng nút bấm */
+          gap: 10px;
+        }
+        .btn-open {
+          grid-column: 1 / -1; /* Nút tràn full chiều ngang */
+          text-align: center;
+          margin-top: 5px;
+          background: var(--primary);
+          border-color: var(--primary);
+          color: white;
+        }
+        .header-title h2 {
+          font-size: 1.2rem;
+        }
+        .item-sticker {
+          width: 45px;
+          height: 45px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header-title">
+        <h2>❤️ Kho Của Tôi</h2>
+      </div>
+
+      <div id="doc-list">
+        <p style="text-align: center; color: #999">Đang tải kho báu...</p>
+      </div>
+
+      <button class="btn-back" onclick="location.href='/'">
+        ⬅ Quay lại trang chủ
+      </button>
+    </div>
+
+    <script>
+      async function loadArchive() {
+        const listArea = document.getElementById("doc-list");
+        const account = localStorage.getItem("user");
+
+        if (!account) {
+          listArea.innerHTML = `
+                    <div class="empty-state">
+                        <img src="https://cdn-icons-png.flaticon.com/512/5900/5900195.png" width="80" style="margin-bottom:15px">
+                        <p>Bạn cần đăng nhập để xem kho báu của mình!</p>
+                    </div>`;
+          return;
+        }
+
+        try {
+          const response = await fetch(`/api/my-saved-docs?account=${account}`);
+          const savedDocs = await response.json();
+
+          if (savedDocs.length === 0) {
+            listArea.innerHTML = `
+                        <div class="empty-state">
+                            <img src="https://cdn-icons-png.flaticon.com/512/4076/4076432.png" width="100" style="margin-bottom:15px">
+                            <p style="font-weight:500; color:#636e72;">
+                                Kho của bạn đang trống trơn.<br>
+                                Hãy thả tim ❤️ vào các bài học để lưu nhé!
+                            </p>
+                        </div>`;
+            return;
+          }
+
+          listArea.innerHTML = "";
+          // Icon Folder 3D đồng bộ
+          const defaultIcon =
+            "https://cdn-icons-png.flaticon.com/512/9431/9431222.png";
+
+          savedDocs.forEach((item) => {
+            listArea.innerHTML += `
+                        <div class="doc-card">
+                            <img src="${
+                              item.sticker || defaultIcon
+                            }" class="item-sticker" alt="icon">
+                            
+                            <div class="doc-info">
+                                <h3>${item.title}</h3>
+                                <span class="subject-tag">${
+                                  item.subject || "Tài liệu"
+                                }</span>
+                            </div>
+
+                            <a href="${
+                              item.link
+                            }" target="_blank" class="btn-open">Mở Ngay 🚀</a>
+                        </div>`;
+          });
+        } catch (err) {
+          console.error("Lỗi:", err);
+          listArea.innerHTML =
+            '<p style="text-align:center;">Mất kết nối với máy chủ vũ trụ!</p>';
+        }
+      }
+      loadArchive();
+    </script>
+  </body>
+</html>

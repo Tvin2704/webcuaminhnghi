@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Vũ Khí Chiến Tranh</title>
+    <style>
+        :root {
+            --red: #ff4757;
+            --dark-red: #c2272f;
+            --bg: #ffecec;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 16px;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(circle at 0% 0%, rgba(255, 214, 165, 0.8), transparent 55%),
+                radial-gradient(circle at 100% 100%, rgba(255, 159, 243, 0.7), transparent 55%),
+                var(--bg);
+        }
+
+        .card {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+            padding: 28px 26px 26px;
+            border-radius: 24px;
+            background: var(--card-bg);
+            box-shadow: 0 18px 40px rgba(255, 71, 87, 0.18);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* Sticker cute chìm trong card */
+        .card::before,
+        .card::after {
+            content: "🎮";
+            position: absolute;
+            font-size: 2.6rem;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .card::before {
+            top: -6px;
+            right: 8px;
+        }
+
+        .card::after {
+            content: "📖";
+            bottom: -10px;
+            left: -2px;
+            transform: rotate(-15deg);
+        }
+
+        h2 {
+            color: var(--red);
+            margin: 0 0 10px;
+            letter-spacing: 0.04em;
+            font-size: 1.2rem;
+        }
+
+        .subtitle {
+            font-size: 0.8rem;
+            color: #999;
+            margin-bottom: 18px;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 18px;
+            border-radius: 999px;
+            background: #fff5f6;
+            padding: 3px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 9px 6px;
+            cursor: pointer;
+            color: #b0b0b0;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border-radius: 999px;
+            transition: 0.25s;
+        }
+
+        .tab.active {
+            color: #fff;
+            background: linear-gradient(135deg, var(--red), var(--dark-red));
+            box-shadow: 0 4px 10px rgba(255, 71, 87, 0.4);
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #666;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid #f0dede;
+            border-radius: 14px;
+            box-sizing: border-box;
+            font-size: 0.95rem;
+            transition: 0.2s;
+            background: #fff9f9;
+        }
+
+        input::placeholder {
+            color: #c0a7a7;
+        }
+
+        input:focus {
+            border-color: var(--red);
+            outline: none;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.15);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 13px;
+            margin-top: 6px;
+            background: linear-gradient(135deg, var(--red), var(--dark-red));
+            color: white;
+            border: none;
+            border-radius: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 18px rgba(255, 71, 87, 0.45);
+            font-size: 0.95rem;
+            letter-spacing: 0.03em;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .btn:active {
+            transform: scale(0.97) translateY(1px);
+            box-shadow: 0 4px 10px rgba(255, 71, 87, 0.35);
+        }
+
+        .hint {
+            margin-top: 10px;
+            font-size: 0.75rem;
+            color: #999;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            .card {
+                padding: 22px 18px 20px;
+                border-radius: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>VŨ KHÍ CHIẾN TRANH</h2>
+        <div class="subtitle">Gian hàng vũ khí học tập cho chiến thần</div>
+
+        <div class="tabs">
+            <div id="t-login" class="tab active" onclick="setMode('login')">Đăng nhập</div>
+            <div id="t-reg" class="tab" onclick="setMode('register')">Đăng ký</div>
+        </div>
+
+        <div class="form-group">
+            <label for="acc">Tài khoản</label>
+            <input type="text" id="acc" placeholder="Email hoặc username">
+        </div>
+
+        <div class="form-group">
+            <label for="pass">Mật khẩu</label>
+            <input type="password" id="pass" placeholder="••••••••">
+        </div>
+
+        <button class="btn" onclick="go()">BẮT ĐẦU TÁC CHIẾN 🚀</button>
+
+        <div class="hint">Đăng nhập xong nhớ thả tim ❤️ lưu tài liệu nhé.</div>
+    </div>
+
+    <script>
+        let mode = 'login';
+        function setMode(m) {
+            mode = m;
+            document.getElementById('t-login').classList.toggle('active', m === 'login');
+            document.getElementById('t-reg').classList.toggle('active', m === 'register');
+        }
+        async function go() {
+            const res = await fetch(mode === 'login' ? '/api/login' : '/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ account: acc.value, password: pass.value })
+            });
+            const data = await res.json();
+            if (data.success) {
+                localStorage.setItem('role', data.role || 'user');
+                localStorage.setItem('user', acc.value);
+                // Nếu là Admin hoặc Quản trị viên (editor) thì cho vào trang admin
+                if (data.role === 'admin' || data.role === 'editor') window.location.href = '/admin.html';
+                else window.location.href = '/'; // Còn lại về trang chủ
+            } else alert(data.message);
+        }
+    </script>
+</body>
+</html>

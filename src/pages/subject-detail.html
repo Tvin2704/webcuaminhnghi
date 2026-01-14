@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kho Tài Liệu - Vũ Khí Chiến Tranh</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles/style.css" />
+    <style>
+      /* --- CÀI ĐẶT CHUNG --- */
+      :root {
+        --primary: #ff4757;
+        --primary-hover: #ff6b81;
+        --bg: #f8f9fa;
+        --text-dark: #2d3436;
+        --text-gray: #636e72;
+        --white: #ffffff;
+        --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        --radius: 16px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: var(--bg);
+        font-family: "Inter", sans-serif; /* Font Inter rất chuẩn cho web app */
+        padding: 20px 15px;
+        margin: 0;
+        color: var(--text-dark);
+      }
+
+      .container {
+        max-width: 850px;
+        margin: auto;
+      }
+
+      /* --- HEADER --- */
+      .header-section {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 15px;
+        color: var(--text-gray);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: 0.2s;
+      }
+      .back-link:hover {
+        color: var(--primary);
+        transform: translateX(-3px);
+      }
+
+      h1#main-title {
+        font-size: 1.8rem;
+        margin: 0;
+        color: var(--text-dark);
+        letter-spacing: -0.5px;
+      }
+
+      /* --- THANH TÌM KIẾM --- */
+      .search-container {
+        margin-bottom: 25px;
+      }
+      .search-bar {
+        display: flex;
+        align-items: center;
+        background: var(--white);
+        padding: 12px 20px;
+        border-radius: 50px;
+        box-shadow: var(--shadow);
+        border: 2px solid transparent;
+        transition: 0.3s;
+      }
+      .search-bar:focus-within {
+        border-color: var(--primary);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 71, 87, 0.15);
+      }
+      .search-bar span {
+        font-size: 1.2rem;
+        margin-right: 10px;
+        opacity: 0.6;
+      }
+      .search-bar input {
+        border: none;
+        outline: none;
+        width: 100%;
+        font-size: 1rem;
+        color: var(--text-dark);
+        background: transparent;
+        font-family: "Inter", sans-serif;
+      }
+
+      /* --- THANH ĐIỀU HƯỚNG (CHIPS) --- */
+      .selector-wrapper {
+        position: relative;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+      }
+      .subject-selector {
+        display: flex;
+        overflow-x: auto;
+        gap: 10px;
+        padding: 5px;
+        scrollbar-width: none;
+        scroll-behavior: smooth;
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
+      }
+      .subject-selector::-webkit-scrollbar {
+        display: none;
+      }
+
+      .sub-btn {
+        flex: 0 0 auto;
+        padding: 10px 20px;
+        background: var(--white);
+        border: 1px solid #e1e1e1;
+        border-radius: 30px; /* Bo tròn kiểu Chip */
+        font-weight: 600;
+        color: var(--text-gray);
+        font-size: 0.9rem;
+        transition: 0.2s ease;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .sub-btn:hover {
+        background: #f1f1f1;
+      }
+      .sub-btn.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+        box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
+      }
+
+      .nav-arrow {
+        background: var(--white);
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        z-index: 2;
+        color: var(--text-gray);
+        font-size: 0.8rem;
+        flex-shrink: 0;
+      }
+
+      /* --- DANH SÁCH TÀI LIỆU (LIST VIEW) --- */
+      #doc-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px; /* Xếp dọc */
+      }
+
+      .doc-card {
+        display: grid;
+        /* Grid 3 phần: Icon - Nội dung - Nút */
+        grid-template-columns: 60px 1fr auto;
+        align-items: center;
+        gap: 20px;
+        background: var(--white);
+        padding: 16px 20px;
+        border-radius: var(--radius);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        border: 1px solid rgba(0, 0, 0, 0.02);
+        position: relative;
+        transition: all 0.2s ease;
+      }
+
+      .doc-card:hover {
+        transform: translateY(-3px) scale(1.005);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      }
+
+      /* Icon Folder chuyên nghiệp */
+      .item-sticker {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+      }
+
+      .doc-info h3 {
+        font-size: 1rem;
+        margin: 0;
+        color: var(--text-dark);
+        font-weight: 600;
+        line-height: 1.5;
+        text-align: left; /* Căn trái cho dễ đọc */
+      }
+      .doc-meta {
+        font-size: 0.8rem;
+        color: #999;
+        margin-top: 4px;
+      }
+
+      /* Nút Mở Tài Liệu */
+      .btn-open {
+        padding: 10px 20px;
+        background: #e2e8f0;
+        color: var(--text-dark);
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+      }
+      .btn-open:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      /* Nút Tim */
+      .save-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: 0.2s;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 4px;
+        border-radius: 50%;
+      }
+      .save-btn:hover {
+        transform: scale(1.1);
+      }
+
+      /* --- EMPTY STATE (Khi không có dữ liệu) --- */
+      .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        background: white;
+        border-radius: var(--radius);
+        border: 2px dashed #eee;
+      }
+      .empty-icon {
+        width: 120px;
+        opacity: 0.8;
+        margin-bottom: 20px;
+      }
+      .empty-text {
+        color: var(--text-gray);
+        font-size: 1rem;
+        font-weight: 500;
+      }
+
+      /* --- RESPONSIVE (MOBILE) --- */
+      @media (max-width: 480px) {
+        body {
+          padding: 15px 10px;
+        }
+        h1#main-title {
+          font-size: 1.5rem;
+        }
+
+        /* Trên điện thoại, thu gọn padding và khoảng cách */
+        .doc-card {
+          padding: 15px;
+          grid-template-columns: 50px 1fr; /* Xuống dòng nút bấm nếu cần */
+          gap: 12px;
+        }
+
+        .item-sticker {
+          width: 45px;
+          height: 45px;
+        }
+        .doc-info h3 {
+          font-size: 0.95rem;
+        }
+
+        /* Đưa nút bấm xuống dưới cùng của thẻ hoặc để icon nhỏ */
+        .btn-open {
+          grid-column: 1 / -1; /* Nút chiếm full chiều ngang ở dưới */
+          justify-content: center;
+          margin-top: 5px;
+          background: var(--primary); /* Trên mobile cho nổi bật luôn */
+          color: white;
+        }
+
+        /* Ẩn nút save vào góc gọn hơn */
+        .save-btn {
+          top: 8px;
+          right: 8px;
+          font-size: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header-section">
+        <a href="/" class="back-link">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          Quay về trang chủ
+        </a>
+        <h1 id="main-title">Đang tải...</h1>
+      </div>
+
+      <div class="search-container">
+        <div class="search-bar">
+          <span>🔍</span>
+          <input
+            type="text"
+            id="doc-search"
+            placeholder="Nhập tên tài liệu để tìm kiếm..."
+            oninput="filterDocs()"
+          />
+        </div>
+      </div>
+
+      <div class="selector-wrapper">
+        <div class="nav-arrow" onclick="scrollNav(-100)">❮</div>
+        <div class="subject-selector" id="sub-nav" style="display: none">
+          <button class="sub-btn active" onclick="changeSub('Toán', this)">
+            Toán
+          </button>
+          <button class="sub-btn" onclick="changeSub('Ngữ Văn', this)">
+            Ngữ Văn
+          </button>
+          <button class="sub-btn" onclick="changeSub('Tiếng Anh', this)">
+            Tiếng Anh
+          </button>
+          <button class="sub-btn" onclick="changeSub('Sử Địa', this)">
+            Sử Địa
+          </button>
+          <button class="sub-btn" onclick="changeSub('Vật Lí', this)">
+            Vật Lí
+          </button>
+          <button class="sub-btn" onclick="changeSub('Sinh Học', this)">
+            Sinh Học
+          </button>
+          <button class="sub-btn" onclick="changeSub('Hóa Học', this)">
+            Hóa Học
+          </button>
+        </div>
+        <div class="nav-arrow" onclick="scrollNav(100)">❯</div>
+      </div>
+
+      <div id="doc-list"></div>
+    </div>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get("type");
+      let currentSub = "Toán";
+      let allCurrentDocs = [];
+
+      const titles = {
+        vào10: "Ôn Thi Vào Lớp 10",
+        thpt: "Ôn Thi THPT Quốc Gia",
+        toeic: "Tài Liệu TOEIC",
+        ielts: "Tài Liệu IELTS",
+      };
+      document.getElementById("main-title").innerText =
+        titles[cat] || "Kho Tài Liệu";
+
+      if (cat === "vào10" || cat === "thpt") {
+        document.getElementById("sub-nav").style.display = "flex";
+      } else {
+        currentSub = "Tất cả";
+        document.querySelector(".selector-wrapper").style.display = "none";
+      }
+
+      async function fetchDocs() {
+        try {
+          const res = await fetch("/api/documents");
+          const data = await res.json();
+
+          allCurrentDocs = data.filter((d) => {
+            if (cat === "toeic" || cat === "ielts") return d.category === cat;
+            return d.category === cat && d.subject === currentSub;
+          });
+          renderDocs(allCurrentDocs);
+        } catch (err) {
+          console.error("Lỗi tải bài:", err);
+        }
+      }
+
+      async function renderDocs(list) {
+        const listArea = document.getElementById("doc-list");
+        listArea.innerHTML = "";
+
+        // --- TRƯỜNG HỢP TRỐNG (EMPTY STATE) ---
+        if (list.length === 0) {
+          // Sử dụng hình ảnh minh họa folder trống sạch sẽ, hiện đại
+          listArea.innerHTML = `
+                    <div class="empty-state">
+                        <img src="https://cdn-icons-png.flaticon.com/512/7486/7486744.png" class="empty-icon" alt="empty">
+                        <p class="empty-text">
+                            Chưa có tài liệu nào cho môn ${currentSub}.<br>
+                            Hãy quay lại sau bạn nhé!
+                        </p>
+                    </div>`;
+          return;
+        }
+
+        const account = localStorage.getItem("user");
+        let savedIds = [];
+        if (account) {
+          try {
+            const res = await fetch(`/api/my-saved-docs?account=${account}`);
+            const savedDocs = await res.json();
+            savedIds = savedDocs.map((d) => Number(d.id));
+          } catch (e) {
+            console.error("Lỗi đồng bộ tim:", e);
+          }
+        }
+
+        // --- RENDER DANH SÁCH (LIST VIEW) ---
+        list.forEach((item) => {
+          const isSaved = savedIds.includes(Number(item.id));
+          // Sử dụng icon Folder 3D đồng bộ cho chuyên nghiệp
+          const defaultIcon =
+            "https://cdn-icons-png.flaticon.com/512/9431/9431222.png"; // Icon folder 3D đẹp
+
+          listArea.innerHTML += `
+    <div class="doc-card">
+        <div class="doc-content">
+            <h3 class="doc-title">${item.title}</h3>
+        </div>
+
+        <div class="doc-side-actions">
+            <div class="save-btn-top" onclick="toggleSave('${item.id}', this)" 
+                 style="color: ${isSaved ? "#ff4757" : "#dcdde1"};">
+                 ${isSaved ? "❤️" : "🤍"}
+            </div>
+            <a href="${item.link}" target="_blank" class="btn-open-compact">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+        </div>
+    </div>`;
+        });
+      }
+
+      async function toggleSave(docId, element) {
+        const account = localStorage.getItem("user");
+        if (!account) {
+          alert("Bạn cần đăng nhập để lưu bài học!");
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/save-doc", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ account: account, docId: Number(docId) }),
+          });
+          const result = await response.json();
+          if (result.success) {
+            element.innerHTML = result.isSaved ? "❤️" : "🤍";
+            element.style.color = result.isSaved ? "#ff4757" : "#dcdde1";
+          }
+        } catch (err) {
+          console.error("Lỗi server:", err);
+        }
+      }
+
+      function filterDocs() {
+        const keyword = document
+          .getElementById("doc-search")
+          .value.toLowerCase();
+        const result = allCurrentDocs.filter((doc) =>
+          doc.title.toLowerCase().includes(keyword)
+        );
+        renderDocs(result);
+      }
+
+      function changeSub(name, btn) {
+        currentSub = name;
+        document
+          .querySelectorAll(".sub-btn")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById("doc-search").value = "";
+        fetchDocs();
+      }
+
+      function scrollNav(offset) {
+        document
+          .getElementById("sub-nav")
+          .scrollBy({ left: offset, behavior: "smooth" });
+      }
+
+      fetchDocs();
+    </script>
+  </body>
+</html>

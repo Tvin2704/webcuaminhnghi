@@ -10,22 +10,29 @@
     />
     <style>
       :root {
-        --primary: #4834d4;
-        --danger: #eb4d4b;
-        --success: #6ab04c;
-        --bg: #f0f2f5;
+        --primary: #ff4757;
+        --primary-light: #ff6b81;
+        --primary-dark: #d63031;
+        --danger: #ff4757;
+        --success: #00b894;
+        --bg: #fff5f5;
         --card-bg: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
       }
 
       body {
         font-family: "Nunito", sans-serif;
-        background-color: var(--bg);
+        background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
+        background-image: url('/images/nghiskibidi.png');
+        background-blend-mode: overlay;
+        background-size: 400px;
+        background-attachment: fixed;
         margin: 0;
         padding: 20px;
-        /* Đồng bộ Sticker chìm với các trang khác */
-        
-        
-       
+        min-height: 100vh;
       }
 
       .container {
@@ -104,21 +111,24 @@
 
       .btn-post {
         width: 100%;
-        padding: 15px;
-        background: var(--primary);
+        padding: 16px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         color: white;
         border: none;
-        border-radius: 15px;
+        border-radius: 18px;
         font-weight: 800;
         font-size: 1rem;
         cursor: pointer;
-        transition: 0.3s;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         margin-top: 10px;
-        box-shadow: 0 4px 15px rgba(72, 52, 212, 0.3);
+        box-shadow: 0 8px 25px rgba(255, 71, 87, 0.4);
       }
       .btn-post:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(72, 52, 212, 0.4);
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 12px 35px rgba(255, 71, 87, 0.5);
+      }
+      .btn-post:active {
+        transform: translateY(-2px) scale(1.01);
       }
       .btn-post:active {
         transform: scale(0.98);
@@ -181,18 +191,21 @@
       }
 
       .btn-del {
-        background: #fff1f2;
+        background: rgba(255, 71, 87, 0.1);
         color: var(--danger);
-        border: none;
-        padding: 10px;
-        border-radius: 12px;
+        border: 2px solid rgba(255, 71, 87, 0.2);
+        padding: 10px 14px;
+        border-radius: 14px;
         font-weight: 800;
         cursor: pointer;
-        transition: 0.2s;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
       .btn-del:hover {
-        background: var(--danger);
+        background: linear-gradient(135deg, var(--danger), var(--primary-dark));
         color: white;
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
+        border-color: transparent;
       }
 
       .btn-home {

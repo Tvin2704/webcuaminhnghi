@@ -11,28 +11,24 @@
     <style>
       :root {
         --primary: #ff4757;
-        --bg: #f8f9fa;
+        --primary-light: #ff6b81;
+        --primary-dark: #d63031;
+        --bg: #fff5f5;
         --text-dark: #2d3436;
         --white: #ffffff;
-        --radius: 16px;
+        --radius: 20px;
       }
 
       body {
-        background-color: var(--bg);
-        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
+        font-family: "Inter", "Nunito", sans-serif;
         padding: 20px 15px;
         margin: 0;
         color: var(--text-dark);
-        /* --- STICKER CHÌM CUTE (DOODLE BACKGROUND) --- */
         background-image: url("/images/nghiskibidi.png");
         background-size: 400px;
-        background-blend-mode: overlay; /* Làm ảnh nền chìm xuống */
-        background-color: rgba(
-          248,
-          249,
-          250,
-          0.92
-        ); /* Phủ lớp màu trắng mờ 92% lên ảnh nền */
+        background-blend-mode: overlay;
+        background-attachment: fixed;
         min-height: 100vh;
       }
 
@@ -58,8 +54,12 @@
       }
       .header-title h2 {
         margin: 0;
-        font-size: 1.5rem;
-        color: var(--primary);
+        font-size: 1.6rem;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 800;
       }
 
       /* DANH SÁCH DẠNG HÀNG NGANG (LIST VIEW) */
@@ -85,8 +85,9 @@
       }
 
       .doc-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 15px 35px rgba(255, 71, 87, 0.2);
+        border-color: rgba(255, 71, 87, 0.3);
       }
 
       /* Icon Folder 3D */
@@ -132,8 +133,11 @@
         border: 2px solid #fdcb6e;
       }
       .btn-open:hover {
-        background: #fdcb6e;
-        transform: scale(1.05);
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+        transform: scale(1.08);
+        box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
+        border-color: var(--primary);
       }
 
       /* Nút Quay Lại */
@@ -153,8 +157,10 @@
         transition: 0.2s;
       }
       .btn-back:hover {
-        background: var(--primary);
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(255, 71, 87, 0.3);
       }
 
       /* EMPTY STATE */

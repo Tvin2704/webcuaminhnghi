@@ -8,15 +8,22 @@
       href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" href="/images/nghiskibidi.png">
+    <link rel="icon" href="/images/nghiskibidi.png" type="image/png">
     <link rel="stylesheet" href="/src/styles/style.css" />
     <style>
       :root {
-        --primary: #ff6b81;
-        --accent: #7bed9f;
-        --bg-color: #f1f2f6;
+        --primary: #ff4757;
+        --primary-light: #ff6b81;
+        --primary-dark: #d63031;
+        --accent: #ffa502;
+        --bg-color: #fff5f5;
         --card-bg: #ffffff;
-        --text-main: #2f3542;
+        --text-main: #2d3436;
+        --text-gray: #636e72;
+      }
+
+      * {
+        box-sizing: border-box;
       }
 
       body {
@@ -24,143 +31,225 @@
         margin: 0;
         padding: 20px 15px;
         color: var(--text-main);
-        /* Background Doodle xịn xò giống trang Kho Của Tôi */
-        background-color: var(--bg-color);
-        
-        background-image: url('../../images/nghiskibidi.png');
+        background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
+        background-image: url('/images/nghiskibidi.png');
         background-blend-mode: overlay;
         background-size: 400px;
+        background-attachment: fixed;
+        min-height: 100vh;
       }
 
       .container {
-        max-width: 600px; /* Giới hạn chiều rộng giống dạng App mobile */
+        max-width: 600px;
         margin: 0 auto;
+        width: 100%;
       }
 
       /* --- HEADER --- */
       .header-box {
         display: flex;
         align-items: center;
-        justify-content: space-between; /* Đẩy sang 2 bên */
+        justify-content: space-between;
         margin-bottom: 25px;
-        background: rgba(255, 255, 255, 0.9);
-        padding: 10px 15px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 245, 245, 0.95));
+        padding: 12px 20px;
         border-radius: 50px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        backdrop-filter: blur(5px);
+        box-shadow: 0 8px 25px rgba(255, 71, 87, 0.15);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 71, 87, 0.1);
+        animation: slideDown 0.5s ease-out;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       .brand-name {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         font-weight: 800;
-        color: var(--primary);
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
         display: flex;
         align-items: center;
         gap: 5px;
+        letter-spacing: -0.5px;
       }
 
       .btn-auth-pill {
-        padding: 6px 15px;
-        background: var(--primary);
+        padding: 8px 18px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         color: white;
         text-decoration: none;
-        border-radius: 20px;
-        font-size: 0.75rem;
+        border-radius: 25px;
+        font-size: 0.8rem;
         font-weight: 700;
-        transition: 0.3s;
-        box-shadow: 0 2px 5px rgba(255, 107, 129, 0.4);
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+        border: none;
       }
       .btn-auth-pill:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(255, 107, 129, 0.6);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 8px 20px rgba(255, 71, 87, 0.5);
+      }
+      .btn-auth-pill:active {
+        transform: translateY(-1px) scale(1.02);
       }
 
       /* --- COUNTDOWN WIDGETS --- */
       .timer-section {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 12px;
+        gap: 15px;
         margin-bottom: 25px;
+        animation: fadeInUp 0.6s ease-out 0.1s both;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       .timer-card {
-        background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         color: white;
-        padding: 15px;
-        border-radius: 20px;
+        padding: 18px;
+        border-radius: 24px;
         text-align: center;
-        box-shadow: 0 4px 10px rgba(108, 92, 231, 0.3);
+        box-shadow: 0 8px 25px rgba(255, 71, 87, 0.3);
         position: relative;
         overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+      }
+      .timer-card:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 12px 35px rgba(255, 71, 87, 0.4);
       }
       .timer-card:nth-child(2) {
-        background: linear-gradient(135deg, #ff7675, #d63031);
-        box-shadow: 0 4px 10px rgba(214, 48, 49, 0.3);
+        background: linear-gradient(135deg, var(--primary-light), var(--primary));
       }
 
       .timer-title {
-        font-size: 0.8rem;
-        opacity: 0.9;
-        margin-bottom: 5px;
-        font-weight: 600;
+        font-size: 0.85rem;
+        opacity: 0.95;
+        margin-bottom: 8px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
       }
       .timer-count {
-        font-size: 1.1rem;
+        font-size: 1.3rem;
         font-weight: 800;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
       }
 
       /* Sticker trang trí chìm trong widget */
       .widget-deco {
         position: absolute;
-        bottom: -5px;
-        right: -5px;
-        font-size: 2.5rem;
-        opacity: 0.2;
+        bottom: -8px;
+        right: -8px;
+        font-size: 3rem;
+        opacity: 0.15;
         transform: rotate(-15deg);
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%, 100% {
+          transform: rotate(-15deg) translateY(0);
+        }
+        50% {
+          transform: rotate(-15deg) translateY(-10px);
+        }
       }
 
       /* --- MAIN MENU GRID (APP ICONS) --- */
       .menu-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr; /* 2 cột trên mọi màn hình */
+        grid-template-columns: 1fr 1fr;
         gap: 15px;
         margin-bottom: 25px;
+        animation: fadeInUp 0.6s ease-out 0.2s both;
       }
 
       .menu-card {
-        background: var(--card-bg);
+        background: linear-gradient(135deg, var(--card-bg), #fffafa);
         border-radius: 24px;
-        padding: 20px 10px;
+        padding: 22px 12px;
         text-align: center;
         text-decoration: none;
         color: var(--text-main);
-        transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Hiệu ứng nảy */
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-        border: 2px solid white;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 6px 20px rgba(255, 71, 87, 0.1);
+        border: 2px solid rgba(255, 71, 87, 0.1);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 140px;
+        min-height: 140px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .menu-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 71, 87, 0.1), transparent);
+        transition: left 0.5s;
+      }
+
+      .menu-card:hover::before {
+        left: 100%;
       }
 
       .menu-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 15px 35px rgba(255, 71, 87, 0.25);
         border-color: var(--primary);
+        background: linear-gradient(135deg, #ffffff, #fff5f5);
       }
 
       .menu-icon {
-        width: 60px;
-        height: 60px;
+        width: 65px;
+        height: 65px;
         object-fit: contain;
-        margin-bottom: 10px;
-        filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1));
+        margin-bottom: 12px;
+        filter: drop-shadow(0 4px 8px rgba(255, 71, 87, 0.2));
+        transition: transform 0.3s;
+      }
+
+      .menu-card:hover .menu-icon {
+        transform: scale(1.1) rotate(5deg);
       }
 
       .menu-title {
         font-weight: 700;
         font-size: 0.95rem;
+        color: var(--text-main);
+        transition: color 0.3s;
+      }
+
+      .menu-card:hover .menu-title {
+        color: var(--primary);
       }
 
       /* --- KHO CỦA TÔI (Archive) --- */
@@ -168,19 +257,22 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: white;
-        padding: 15px 25px;
-        border-radius: 20px;
+        background: linear-gradient(135deg, #ffffff, #fffafa);
+        padding: 18px 25px;
+        border-radius: 24px;
         text-decoration: none;
         color: var(--text-main);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 8px 25px rgba(255, 71, 87, 0.15);
         margin-bottom: 25px;
-        transition: 0.3s;
-        border: 2px solid transparent;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 2px solid rgba(255, 71, 87, 0.1);
+        animation: fadeInUp 0.6s ease-out 0.3s both;
       }
       .archive-btn:hover {
-        border-color: #f1c40f;
-        transform: scale(1.02);
+        border-color: var(--primary);
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 12px 35px rgba(255, 71, 87, 0.25);
+        background: linear-gradient(135deg, #ffffff, #fff5f5);
       }
       .archive-content {
         display: flex;
@@ -188,7 +280,8 @@
         gap: 15px;
       }
       .archive-icon {
-        width: 40px;
+        width: 45px;
+        filter: drop-shadow(0 2px 4px rgba(255, 71, 87, 0.2));
       }
 
       /* --- FOOTER BUTTONS --- */
@@ -196,11 +289,12 @@
         display: flex;
         gap: 12px;
         margin-top: 20px;
+        animation: fadeInUp 0.6s ease-out 0.4s both;
       }
       .btn-action {
         flex: 1;
-        padding: 12px;
-        border-radius: 15px;
+        padding: 14px;
+        border-radius: 18px;
         border: none;
         font-weight: 800;
         color: white;
@@ -211,19 +305,53 @@
         align-items: center;
         justify-content: center;
         gap: 8px;
-        transition: 0.2s;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow: hidden;
       }
       .btn-zalo {
-        background: #0088ff;
-      } /* Màu chuẩn Zalo */
+        background: linear-gradient(135deg, #0088ff, #0066cc);
+      }
       .btn-donate {
-        background: #f1c40f;
-        color: #574b00;
-      } /* Màu vàng chanh */
+        background: linear-gradient(135deg, var(--accent), #ff8c00);
+        color: white;
+      }
+
+      .btn-action:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
 
       .btn-action:active {
-        transform: scale(0.95);
+        transform: translateY(-1px) scale(1.02);
+      }
+
+      /* Responsive */
+      @media (max-width: 480px) {
+        body {
+          padding: 15px 10px;
+        }
+        .container {
+          max-width: 100%;
+        }
+        .timer-section,
+        .menu-grid {
+          grid-template-columns: 1fr;
+        }
+        .header-box {
+          padding: 10px 15px;
+        }
+        .brand-name {
+          font-size: 1.1rem;
+        }
+        .btn-auth-pill {
+          padding: 6px 14px;
+          font-size: 0.7rem;
+        }
+        .footer-actions {
+          flex-direction: column;
+        }
       }
     </style>
   </head>
@@ -231,8 +359,8 @@
     <div class="container">
       <div class="header-box">
         <div class="brand-name">
-          <span> MinhNghi</span>
-          <span style="color: #d0d06d; font-size: 0.8em">Skibidi</span>
+          <span>MinhNghi</span>
+          <span style="color: #ffa502; font-size: 0.8em">Skibidi</span>
         </div>
         <a href="/login.html" id="user-btn" class="btn-auth-pill">Đăng nhập</a>
       </div>

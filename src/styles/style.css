@@ -6,17 +6,18 @@
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  /* Nền gradient + sticker nhẹ cho các trang dùng stylesheet chung */
-  background:
-    radial-gradient(circle at 0% 0%, rgba(255, 214, 165, 0.8), transparent 55%),
-    radial-gradient(circle at 100% 100%, rgba(255, 159, 243, 0.75), transparent
-          55%),
-    #ffecec;
+  font-family: "Nunito", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
+  background-image: url('/images/nghiskibidi.png');
+  background-blend-mode: overlay;
+  background-size: 400px;
+  background-attachment: fixed;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   min-height: 100vh;
   padding: 40px 16px 32px;
+  overflow-x: hidden;
 }
 
 .container {
@@ -113,10 +114,10 @@ h1 {
 }
 
 .card:hover {
-  border-color: #ff6b81;
-  background-color: #fff9fb;
-  transform: translateY(-6px) scale(1.01);
-  box-shadow: 0 14px 30px rgba(255, 107, 129, 0.25);
+  border-color: #ff4757;
+  background: linear-gradient(145deg, #ffffff, #fff5f5);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 18px 40px rgba(255, 71, 87, 0.3);
 }
 
 /* Các nút dưới cùng */
@@ -159,39 +160,43 @@ button:hover {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 60px;
-  height: 60px;
-  background-color: #ff6b6b;
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #ff4757, #d63031);
   border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 25px rgba(255, 71, 87, 0.4);
   color: white;
-  font-size: 30px;
+  font-size: 32px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   z-index: 1000;
-  transition: transform 0.3s;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 3px solid rgba(255, 255, 255, 0.3);
 }
 
 #timer-icon:hover {
-  transform: scale(1.1);
-  background-color: #ff4757;
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 12px 35px rgba(255, 71, 87, 0.5);
+  background: linear-gradient(135deg, #ff6b81, #ff4757);
 }
 
 #timer-popup {
   position: fixed;
   bottom: 90px;
   right: 20px;
-  width: 250px;
-  background: white;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  max-width: 90vw;
+  width: 280px;
+  background: linear-gradient(135deg, #ffffff, #fffafa);
+  padding: 24px;
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(255, 71, 87, 0.25);
   text-align: center;
   z-index: 1000;
   display: none;
-  border: 2px solid #ff6b6b;
+  border: 3px solid #ff4757;
+  animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 #timer-popup.active {
@@ -258,24 +263,26 @@ button:hover {
   position: fixed;
   bottom: 90px;
   right: 20px;
-  width: 60px;
-  height: 60px;
-  background-color: #ac1ff3;
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #ff4757, #d63031);
   border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 25px rgba(255, 71, 87, 0.4);
   color: white;
-  font-size: 28px;
+  font-size: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   z-index: 1000;
-  transition: transform 0.3s, background-color 0.3s;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 3px solid rgba(255, 255, 255, 0.3);
 }
 
 #chat-widget-icon:hover {
-  transform: scale(1.1);
-  background-color: #b30000;
+  transform: scale(1.15) rotate(-5deg);
+  box-shadow: 0 12px 35px rgba(255, 71, 87, 0.5);
+  background: linear-gradient(135deg, #ff6b81, #ff4757);
 }
 
 #chat-widget-window {
@@ -311,13 +318,14 @@ button:hover {
 }
 
 .chat-widget-header {
-  background: #ff0000;
+  background: linear-gradient(135deg, #ff4757, #d63031);
   color: white;
-  padding: 12px 15px;
-  font-weight: bold;
+  padding: 14px 18px;
+  font-weight: 800;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
 }
 
 .close-chat {
@@ -363,7 +371,8 @@ button:hover {
 .search-bar:focus-within {
   background: white;
   border-color: #ff4757;
-  box-shadow: 0 2px 8px rgba(255, 71, 87, 0.2);
+  box-shadow: 0 4px 15px rgba(255, 71, 87, 0.25);
+  transform: translateY(-2px);
 }
 
 .search-icon {
@@ -415,14 +424,25 @@ button:hover {
 }
 
 .nav-arrow {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: #ff4757;
   cursor: pointer;
   user-select: none;
   z-index: 10;
-  width: 30px;
-  text-align: center;
-  line-height: 1;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 71, 87, 0.1);
+  transition: all 0.3s;
+}
+
+.nav-arrow:hover {
+  background: #ff4757;
+  color: white;
+  transform: scale(1.1);
 }
 
 .subject-selector {
@@ -585,16 +605,22 @@ button:hover {
 }
 
 .btn-open-square {
-  background: #ff4757;
+  background: linear-gradient(135deg, #ff4757, #d63031);
   color: white;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
+  border-radius: 14px;
   text-decoration: none;
-  box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
+  box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-open-square:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 8px 25px rgba(255, 71, 87, 0.5);
 }
 
 /* --- TỐI ƯU CHIỀU RỘNG CHO MOBILE [cite: 2026-01-12] --- */

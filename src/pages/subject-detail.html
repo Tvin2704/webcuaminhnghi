@@ -13,13 +13,15 @@
       /* --- CÀI ĐẶT CHUNG --- */
       :root {
         --primary: #ff4757;
+        --primary-light: #ff6b81;
+        --primary-dark: #d63031;
         --primary-hover: #ff6b81;
-        --bg: #f8f9fa;
+        --bg: #fff5f5;
         --text-dark: #2d3436;
         --text-gray: #636e72;
         --white: #ffffff;
-        --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        --radius: 16px;
+        --shadow: 0 8px 25px rgba(255, 71, 87, 0.15);
+        --radius: 20px;
       }
 
       * {
@@ -27,11 +29,16 @@
       }
 
       body {
-        background-color: var(--bg);
-        font-family: "Inter", sans-serif; /* Font Inter rất chuẩn cho web app */
+        background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
+        background-image: url('/images/nghiskibidi.png');
+        background-blend-mode: overlay;
+        background-size: 400px;
+        background-attachment: fixed;
+        font-family: "Inter", "Nunito", sans-serif;
         padding: 20px 15px;
         margin: 0;
         color: var(--text-dark);
+        min-height: 100vh;
       }
 
       .container {
@@ -139,10 +146,11 @@
         background: #f1f1f1;
       }
       .sub-btn.active {
-        background: var(--primary);
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         color: white;
         border-color: var(--primary);
-        box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
+        box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
+        transform: scale(1.05);
       }
 
       .nav-arrow {
@@ -184,8 +192,9 @@
       }
 
       .doc-card:hover {
-        transform: translateY(-3px) scale(1.005);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 15px 35px rgba(255, 71, 87, 0.2);
+        border-color: rgba(255, 71, 87, 0.3);
       }
 
       /* Icon Folder chuyên nghiệp */
@@ -226,8 +235,10 @@
         white-space: nowrap;
       }
       .btn-open:hover {
-        background: var(--primary);
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         color: white;
+        transform: translateX(3px);
+        box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
       }
 
       /* Nút Tim */
@@ -291,11 +302,12 @@
 
         /* Đưa nút bấm xuống dưới cùng của thẻ hoặc để icon nhỏ */
         .btn-open {
-          grid-column: 1 / -1; /* Nút chiếm full chiều ngang ở dưới */
+          grid-column: 1 / -1;
           justify-content: center;
           margin-top: 5px;
-          background: var(--primary); /* Trên mobile cho nổi bật luôn */
+          background: linear-gradient(135deg, var(--primary), var(--primary-dark));
           color: white;
+          box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
         }
 
         /* Ẩn nút save vào góc gọn hơn */

@@ -20,16 +20,21 @@
       }
 
       body {
-        background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
-        backdrop-filter: blur(10px);
-        font-family: "Inter", "Nunito", sans-serif;
+        background-color: var(--bg);
+        font-family: "Inter", sans-serif;
         padding: 20px 15px;
         margin: 0;
         color: var(--text-dark);
+        /* --- STICKER CHÌM CUTE (DOODLE BACKGROUND) --- */
         background-image: url("/images/nghiskibidi.png");
         background-size: 400px;
-        background-blend-mode: overlay;
-        background-attachment: fixed;
+        background-blend-mode: overlay; /* Làm ảnh nền chìm xuống */
+        background-color: rgba(
+          248,
+          249,
+          250,
+          0.92
+        ); /* Phủ lớp màu trắng mờ 92% lên ảnh nền */
         min-height: 100vh;
       }
 

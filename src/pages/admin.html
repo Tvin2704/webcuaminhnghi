@@ -230,7 +230,7 @@
       <div class="card">
         <div class="card-header">
           <h2>🚀 BẢNG ĐIỀU KHIỂN</h2>
-          <p>Thêm vũ khí mới cho các chiến thần đi học</p>
+          <p>Thêm thóc cho gà🐣</p>
         </div>
 
         <div class="form-grid">
@@ -353,7 +353,7 @@
             document.getElementById("link").value = "";
             loadData();
           } else {
-            alert("❌ Lỗi rồi sếp ơi!");
+            alert("❌ Lỗi rồi này!");
           }
         } catch (err) {
           alert("❌ Mất kết nối server!");
@@ -404,7 +404,7 @@
       }
 
       async function deleteDoc(id) {
-        if (confirm("Xóa file này là không khôi phục được đâu sếp nhé?")) {
+        if (confirm("xóa là không khôi phục được đâu nha")) {
           const res = await fetch(`/api/documents/${id}`, { method: "DELETE" });
           if (res.ok) loadData();
         }

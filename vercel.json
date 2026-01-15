@@ -1,16 +1,15 @@
 {
   "version": 2,
-  "builds": [
+  "public": true,
+  "cleanUrls": true,
+  "rewrites": [
     {
-      "src": "server.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
+      "source": "/images/(.*)",
+      "destination": "/images/$1"
+    },
     {
-      "src": "/(.*)",
-      "dest": "server.js"
+      "source": "/(.*)",
+      "destination": "/src/pages/index.html"
     }
   ]
 }
-

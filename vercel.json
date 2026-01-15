@@ -1,15 +1,16 @@
 {
   "version": 2,
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "rewrites": [
+  "builds": [
     {
-      "source": "/images/(.*)",
-      "destination": "/images/$1"
-    },
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
     {
-      "source": "/(.*)",
-      "destination": "/src/pages/$1.html"
+      "src": "/(.*)",
+      "dest": "server.js"
     }
   ]
 }
+

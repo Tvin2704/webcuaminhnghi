@@ -221,7 +221,7 @@
         if (!account) {
           listArea.innerHTML = `
                     <div class="empty-state">
-                        <img src="https://cdn-icons-png.flaticon.com/512/5900/5900195.png" width="80" style="margin-bottom:15px">
+                        
                         <p>Bạn cần đăng nhập để xem kho báu của mình!</p>
                     </div>`;
           return;
@@ -234,7 +234,7 @@
           if (savedDocs.length === 0) {
             listArea.innerHTML = `
                         <div class="empty-state">
-                            <img src="https://cdn-icons-png.flaticon.com/512/4076/4076432.png" width="100" style="margin-bottom:15px">
+                            
                             <p style="font-weight:500; color:#636e72;">
                                 Kho của bạn đang trống trơn.<br>
                                 Hãy thả tim ❤️ vào các bài học để lưu nhé!
@@ -245,8 +245,7 @@
 
           listArea.innerHTML = "";
           // Icon Folder 3D đồng bộ
-          const defaultIcon =
-            "/images/nghiskibidi.png";
+          
 
           savedDocs.forEach((item) => {
             listArea.innerHTML += `

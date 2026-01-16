@@ -31,13 +31,12 @@
         margin: 0;
         padding: 20px 15px;
         color: var(--text-main);
-        background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
-        background-image: url('/images/nghiskibidi.png');
+        /* Background Doodle xịn xò giống trang Kho Của Tôi */
+        background-color: var(--bg-color);
+        
+        background-image: url('../../images/nghiskibidi.png');
         background-blend-mode: overlay;
         background-size: 400px;
-        background-attachment: fixed;
-        background-color: rgba(255, 255, 255, 0.92); 
-        min-height: 100vh;
       }
 
       .container {
@@ -254,6 +253,13 @@
       }
 
       /* --- KHO CỦA TÔI (Archive) --- */
+      .archive-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-bottom: 25px;
+        animation: fadeInUp 0.6s ease-out 0.3s both;
+      }
       .archive-btn {
         display: flex;
         align-items: center;
@@ -264,10 +270,8 @@
         text-decoration: none;
         color: var(--text-main);
         box-shadow: 0 8px 25px rgba(255, 71, 87, 0.15);
-        margin-bottom: 25px;
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         border: 2px solid rgba(255, 71, 87, 0.1);
-        animation: fadeInUp 0.6s ease-out 0.3s both;
       }
       .archive-btn:hover {
         border-color: var(--primary);
@@ -281,6 +285,34 @@
         gap: 15px;
       }
       .archive-icon {
+        width: 45px;
+        filter: drop-shadow(0 2px 4px rgba(255, 71, 87, 0.2));
+      }
+      .motivation-btn {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: linear-gradient(135deg, #ffffff, #fffafa);
+        padding: 18px 25px;
+        border-radius: 24px;
+        text-decoration: none;
+        color: var(--text-main);
+        box-shadow: 0 8px 25px rgba(255, 71, 87, 0.15);
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 2px solid rgba(255, 71, 87, 0.1);
+      }
+      .motivation-btn:hover {
+        border-color: var(--primary);
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 12px 35px rgba(255, 71, 87, 0.25);
+        background: linear-gradient(135deg, #ffffff, #fff5f5);
+      }
+      .motivation-content {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .motivation-icon {
         width: 45px;
         filter: drop-shadow(0 2px 4px rgba(255, 71, 87, 0.2));
       }
@@ -417,22 +449,40 @@
         </a>
       </div>
 
-      <a href="/my-archive.html" class="archive-btn">
-        <div class="archive-content">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/4645/4645223.png"
-            class="archive-icon"
-            alt="safe"
-          />
-          <div style="text-align: left">
-            <div style="font-weight: 800; font-size: 1rem">Kho Của Tôi</div>
-            <div style="font-size: 0.75rem; color: #7f8fa6">
-              Xem tài liệu đã lưu ❤️
+      <div class="archive-row">
+        <a href="/my-archive.html" class="archive-btn">
+          <div class="archive-content">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/4645/4645223.png"
+              class="archive-icon"
+              alt="safe"
+            />
+            <div style="text-align: left">
+              <div style="font-weight: 800; font-size: 1rem">Kho Của Tôi</div>
+              <div style="font-size: 0.75rem; color: #7f8fa6">
+                Xem tài liệu đã lưu ❤️
+              </div>
             </div>
           </div>
-        </div>
-        <div style="font-size: 1.2rem">➔</div>
-      </a>
+          <div style="font-size: 1.2rem">➔</div>
+        </a>
+        <a href="/Movation.html" class="motivation-btn">
+          <div class="motivation-content">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/4645/4645223.png"
+              class="motivation-icon"
+              alt="message"
+            />
+            <div style="text-align: left">
+              <div style="font-weight: 800; font-size: 1rem">Lời Nhắn</div>
+              <div style="font-size: 0.75rem; color: #7f8fa6">
+                Động lực học tập 💪
+              </div>
+            </div>
+          </div>
+          <div style="font-size: 1.2rem">➔</div>
+        </a>
+      </div>
 
       <div class="footer-actions">
         <button

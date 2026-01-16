@@ -72,7 +72,7 @@
 
       .doc-card {
         display: grid;
-        grid-template-columns: 60px 1fr auto; /* Icon - Nội dung - Nút */
+        grid-template-columns: 1fr auto; /* Nội dung - Nút */
         align-items: center;
         gap: 15px;
         background: var(--white);
@@ -91,13 +91,6 @@
         border-color: rgba(255, 71, 87, 0.3);
       }
 
-      /* Icon Folder 3D */
-      .item-sticker {
-        width: 50px;
-        height: 50px;
-        object-fit: contain;
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-      }
 
       .doc-info h3 {
         font-size: 1rem;
@@ -177,7 +170,7 @@
       @media (max-width: 480px) {
         .doc-card {
           padding: 15px;
-          grid-template-columns: 50px 1fr; /* Xuống dòng nút bấm */
+          grid-template-columns: 1fr; /* Xuống dòng nút bấm */
           gap: 10px;
         }
         .btn-open {
@@ -190,10 +183,6 @@
         }
         .header-title h2 {
           font-size: 1.2rem;
-        }
-        .item-sticker {
-          width: 45px;
-          height: 45px;
         }
       }
     </style>
@@ -229,7 +218,16 @@
 
         try {
           const response = await fetch(`/api/my-saved-docs?account=${account}`);
+          
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          
           const savedDocs = await response.json();
+
+          if (!Array.isArray(savedDocs)) {
+            throw new Error('Invalid response format');
+          }
 
           if (savedDocs.length === 0) {
             listArea.innerHTML = `
@@ -244,16 +242,10 @@
           }
 
           listArea.innerHTML = "";
-          // Icon Folder 3D đồng bộ
-          
 
           savedDocs.forEach((item) => {
             listArea.innerHTML += `
                         <div class="doc-card">
-                            <img src="${
-                              item.sticker || defaultIcon
-                            }" class="item-sticker" alt="icon">
-                            
                             <div class="doc-info">
                                 <h3>${item.title}</h3>
                                 <span class="subject-tag">${
@@ -268,8 +260,13 @@
           });
         } catch (err) {
           console.error("Lỗi:", err);
-          listArea.innerHTML =
-            '<p style="text-align:center;">Mất kết nối với máy chủ vũ trụ!</p>';
+          listArea.innerHTML = `
+            <div class="empty-state">
+              <p style="font-weight:500; color:#636e72;">
+                Không thể tải kho báu lúc này.<br>
+                Vui lòng thử lại sau!
+              </p>
+            </div>`;
         }
       }
       loadArchive();

@@ -265,13 +265,14 @@
         align-items: center;
         justify-content: space-between;
         background: linear-gradient(135deg, #ffffff, #fffafa);
-        padding: 18px 25px;
+        padding: 18px 20px;
         border-radius: 24px;
         text-decoration: none;
         color: var(--text-main);
         box-shadow: 0 8px 25px rgba(255, 71, 87, 0.15);
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         border: 2px solid rgba(255, 71, 87, 0.1);
+        min-height: 90px;
       }
       .archive-btn:hover {
         border-color: var(--primary);
@@ -283,23 +284,32 @@
         display: flex;
         align-items: center;
         gap: 15px;
+        flex: 1;
+        min-width: 0;
       }
-      .archive-icon {
-        width: 45px;
-        filter: drop-shadow(0 2px 4px rgba(255, 71, 87, 0.2));
+      .archive-icon,
+      .motivation-icon {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 12px;
+        filter: drop-shadow(0 2px 4px rgba(255, 71, 87, 0.2)) contrast(120%);
+        mix-blend-mode: multiply;
+        flex-shrink: 0;
       }
       .motivation-btn {
         display: flex;
         align-items: center;
         justify-content: space-between;
         background: linear-gradient(135deg, #ffffff, #fffafa);
-        padding: 18px 25px;
+        padding: 18px 20px;
         border-radius: 24px;
         text-decoration: none;
         color: var(--text-main);
         box-shadow: 0 8px 25px rgba(255, 71, 87, 0.15);
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         border: 2px solid rgba(255, 71, 87, 0.1);
+        min-height: 90px;
       }
       .motivation-btn:hover {
         border-color: var(--primary);
@@ -311,10 +321,8 @@
         display: flex;
         align-items: center;
         gap: 15px;
-      }
-      .motivation-icon {
-        width: 45px;
-        filter: drop-shadow(0 2px 4px rgba(255, 71, 87, 0.2));
+        flex: 1;
+        min-width: 0;
       }
 
       /* --- FOOTER BUTTONS --- */
@@ -371,6 +379,24 @@
         .timer-section,
         .menu-grid {
           grid-template-columns: 1fr;
+        }
+        .archive-row {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+        .archive-btn,
+        .motivation-btn {
+          padding: 15px 18px;
+          min-height: 85px;
+        }
+        .archive-icon,
+        .motivation-icon {
+          width: 45px;
+          height: 45px;
+        }
+        .archive-content,
+        .motivation-content {
+          gap: 12px;
         }
         .header-box {
           padding: 10px 15px;
@@ -456,7 +482,6 @@
           <div class="archive-content">
             <img
               src="../../images/reimu11.jpg"
-              style="mix-blend-mode: multiply; filter: contrast(120%);"
               class="archive-icon"
               alt="safe"
             />
@@ -476,9 +501,6 @@
             <img
               src="../../images/reimu12.jpg"
               class="motivation-icon"
-              style="mix-blend-mode: multiply; filter: contrast(120%);"
-
-              
               alt="message"
             />
             <div style="text-align: left">

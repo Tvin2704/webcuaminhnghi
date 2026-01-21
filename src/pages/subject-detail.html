@@ -75,29 +75,51 @@
         letter-spacing: -0.5px;
       }
 
-      /* --- THANH TÌM KIẾM --- */
+      /* --- THANH TÌM KIẾM HIỆN ĐẠI --- */
       .search-container {
         margin-bottom: 25px;
+        position: relative;
       }
       .search-bar {
         display: flex;
         align-items: center;
         background: var(--white);
-        padding: 12px 20px;
-        border-radius: 50px;
-        box-shadow: var(--shadow);
-        border: 2px solid transparent;
-        transition: 0.3s;
+        padding: 16px 24px;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 2px solid rgba(255, 71, 87, 0.1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+      .search-bar::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 71, 87, 0.05), transparent);
+        transition: left 0.6s;
+      }
+      .search-bar:focus-within::before {
+        left: 100%;
       }
       .search-bar:focus-within {
         border-color: var(--primary);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(255, 71, 87, 0.15);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(255, 71, 87, 0.2);
       }
-      .search-bar span {
-        font-size: 1.2rem;
-        margin-right: 10px;
-        opacity: 0.6;
+      .search-icon {
+        font-size: 1.3rem;
+        margin-right: 12px;
+        opacity: 0.7;
+        transition: all 0.3s;
+      }
+      .search-bar:focus-within .search-icon {
+        opacity: 1;
+        transform: scale(1.1);
+        color: var(--primary);
       }
       .search-bar input {
         border: none;
@@ -107,6 +129,56 @@
         color: var(--text-dark);
         background: transparent;
         font-family: "Inter", sans-serif;
+        font-weight: 500;
+      }
+      .search-bar input::placeholder {
+        color: #a0a0a0;
+        font-weight: 400;
+      }
+      .search-results-count {
+        position: absolute;
+        top: -8px;
+        right: 16px;
+        background: var(--primary);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.3s;
+      }
+      .search-results-count.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .search-clear {
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 71, 87, 0.1);
+        border: none;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0;
+        transition: all 0.3s;
+        color: var(--primary);
+        font-size: 0.9rem;
+      }
+      .search-clear.show {
+        opacity: 1;
+      }
+      .search-clear:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-50%) scale(1.1);
       }
 
       /* --- THANH ĐIỀU HƯỚNG (CHIPS) --- */
@@ -170,92 +242,168 @@
         flex-shrink: 0;
       }
 
-      /* --- DANH SÁCH TÀI LIỆU (LIST VIEW) --- */
+      /* --- DANH SÁCH TÀI LIỆU HIỆN ĐẠI --- */
       #doc-list {
         display: flex;
         flex-direction: column;
-        gap: 15px; /* Xếp dọc */
+        gap: 12px;
       }
 
       .doc-card {
-        display: grid;
-        /* Grid 3 phần: Icon - Nội dung - Nút */
-        grid-template-columns: 60px 1fr auto;
-        align-items: center;
-        gap: 20px;
         background: var(--white);
-        padding: 16px 20px;
-        border-radius: var(--radius);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-        border: 1px solid rgba(0, 0, 0, 0.02);
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(255, 71, 87, 0.08);
         position: relative;
-        transition: all 0.2s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+        overflow: hidden;
+        user-select: none;
+      }
+
+      .doc-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 71, 87, 0.03), transparent);
+        transition: left 0.6s;
+      }
+
+      .doc-card:hover::before {
+        left: 100%;
       }
 
       .doc-card:hover {
-        transform: translateY(-5px) scale(1.02);
-        box-shadow: 0 15px 35px rgba(255, 71, 87, 0.2);
-        border-color: rgba(255, 71, 87, 0.3);
+        transform: translateY(-4px) scale(1.01);
+        box-shadow: 0 12px 40px rgba(255, 71, 87, 0.15);
+        border-color: rgba(255, 71, 87, 0.2);
       }
 
-      /* Icon Folder chuyên nghiệp */
-      .item-sticker {
-        width: 50px;
-        height: 50px;
-        object-fit: contain;
-        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+      .doc-card:active {
+        transform: translateY(-2px) scale(1.005);
       }
 
-      .doc-info h3 {
-        font-size: 1rem;
-        margin: 0;
+      .doc-content {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        width: 100%;
+      }
+
+      .doc-icon {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, var(--primary-light), var(--primary));
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: white;
+        flex-shrink: 0;
+        box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
+      }
+
+      .doc-info {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .doc-title {
+        font-size: 1.05rem;
+        margin: 0 0 4px 0;
         color: var(--text-dark);
         font-weight: 600;
-        line-height: 1.5;
-        text-align: left; /* Căn trái cho dễ đọc */
+        line-height: 1.4;
+        word-wrap: break-word;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
+
       .doc-meta {
         font-size: 0.8rem;
         color: #999;
-        margin-top: 4px;
-      }
-
-      /* Nút Mở Tài Liệu */
-      .btn-open {
-        padding: 10px 20px;
-        background: #e2e8f0;
-        color: var(--text-dark);
-        border-radius: 10px;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 0.9rem;
-        transition: 0.2s;
-        display: inline-flex;
+        margin: 0;
+        display: flex;
         align-items: center;
         gap: 8px;
-        white-space: nowrap;
-      }
-      .btn-open:hover {
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        color: white;
-        transform: translateX(3px);
-        box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
       }
 
-      /* Nút Tim */
-      .save-btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: 0.2s;
-        background: rgba(255, 255, 255, 0.8);
-        padding: 4px;
-        border-radius: 50%;
+      .doc-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
       }
+
+      .save-btn {
+        background: rgba(255, 71, 87, 0.1);
+        border: none;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 1.1rem;
+        position: relative;
+        z-index: 10;
+      }
+
       .save-btn:hover {
+        background: var(--primary);
+        color: white;
         transform: scale(1.1);
+      }
+
+      .save-btn.saved {
+        background: var(--primary);
+        color: white;
+        animation: heartBeat 0.6s ease-in-out;
+      }
+
+      @keyframes heartBeat {
+        0% { transform: scale(1); }
+        25% { transform: scale(1.2); }
+        50% { transform: scale(1); }
+        75% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+      }
+
+      .open-indicator {
+        background: rgba(255, 71, 87, 0.1);
+        color: var(--primary);
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        transition: all 0.3s;
+      }
+
+      .doc-card:hover .open-indicator {
+        background: var(--primary);
+        color: white;
+        transform: translateX(3px);
+      }
+
+      /* Highlight từ khóa tìm kiếm */
+      .highlight {
+        background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+        padding: 2px 4px;
+        border-radius: 4px;
+        font-weight: 700;
+        color: var(--primary-dark);
       }
 
       /* --- EMPTY STATE (Khi không có dữ liệu) --- */
@@ -286,36 +434,54 @@
           font-size: 1.5rem;
         }
 
-        /* Trên điện thoại, thu gọn padding và khoảng cách */
+        .search-bar {
+          padding: 14px 20px;
+        }
+
         .doc-card {
-          padding: 15px;
-          grid-template-columns: 50px 1fr; /* Xuống dòng nút bấm nếu cần */
+          padding: 16px;
+        }
+
+        .doc-content {
           gap: 12px;
         }
 
-        .item-sticker {
-          width: 45px;
-          height: 45px;
+        .doc-icon {
+          width: 42px;
+          height: 42px;
+          font-size: 1.3rem;
         }
-        .doc-info h3 {
+
+        .doc-title {
           font-size: 0.95rem;
         }
 
-        /* Đưa nút bấm xuống dưới cùng của thẻ hoặc để icon nhỏ */
-        .btn-open {
-          grid-column: 1 / -1;
-          justify-content: center;
-          margin-top: 5px;
-          background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-          color: white;
-          box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
+        .doc-actions {
+          gap: 8px;
         }
 
-        /* Ẩn nút save vào góc gọn hơn */
         .save-btn {
-          top: 8px;
-          right: 8px;
-          font-size: 1.2rem;
+          width: 32px;
+          height: 32px;
+          font-size: 1rem;
+        }
+
+        .open-indicator {
+          padding: 4px 8px;
+          font-size: 0.7rem;
+        }
+
+        .search-results-count {
+          right: 12px;
+          font-size: 0.7rem;
+          padding: 3px 8px;
+        }
+
+        .search-clear {
+          width: 24px;
+          height: 24px;
+          right: 12px;
+          font-size: 0.8rem;
         }
       }
     </style>
@@ -343,14 +509,16 @@
 
       <div class="search-container">
         <div class="search-bar">
-          <span>🔍</span>
+          <span class="search-icon">🔍</span>
           <input
             type="text"
             id="doc-search"
-            placeholder="Nhập tên tài liệu để tìm kiếm..."
-            oninput="filterDocs()"
+            placeholder="Tìm kiếm tài liệu theo tên, nội dung..."
+            autocomplete="off"
           />
+          <button class="search-clear" id="search-clear" onclick="clearSearch()">✕</button>
         </div>
+        <div class="search-results-count" id="search-count"></div>
       </div>
 
       <div class="selector-wrapper">
@@ -389,6 +557,9 @@
       const cat = params.get("type");
       let currentSub = "Toán";
       let allCurrentDocs = [];
+      let filteredDocs = [];
+      let searchTimeout = null;
+      let currentSearchTerm = '';
 
       const titles = {
         vào10: "Ôn Thi Vào Lớp 10",
@@ -406,39 +577,137 @@
         document.querySelector(".selector-wrapper").style.display = "none";
       }
 
+      // Tối ưu hóa tìm kiếm với debounce và highlight
+      function setupSearch() {
+        const searchInput = document.getElementById("doc-search");
+        const searchClear = document.getElementById("search-clear");
+        const searchCount = document.getElementById("search-count");
+
+        searchInput.addEventListener('input', function(e) {
+          const value = e.target.value.trim();
+          
+          // Hiện/ẩn nút clear
+          if (value) {
+            searchClear.classList.add('show');
+          } else {
+            searchClear.classList.remove('show');
+            searchCount.classList.remove('show');
+          }
+
+          // Debounce search
+          clearTimeout(searchTimeout);
+          searchTimeout = setTimeout(() => {
+            performSearch(value);
+          }, 300);
+        });
+
+        // Enter để tìm kiếm ngay
+        searchInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            clearTimeout(searchTimeout);
+            performSearch(e.target.value.trim());
+          }
+        });
+      }
+
+      function performSearch(searchTerm) {
+        currentSearchTerm = searchTerm.toLowerCase();
+        
+        if (!searchTerm) {
+          filteredDocs = [...allCurrentDocs];
+          document.getElementById("search-count").classList.remove('show');
+        } else {
+          // Tìm kiếm thông minh: tên, từ khóa, nội dung
+          filteredDocs = allCurrentDocs.filter(doc => {
+            const title = doc.title.toLowerCase();
+            const subject = (doc.subject || '').toLowerCase();
+            const category = (doc.category || '').toLowerCase();
+            
+            return title.includes(currentSearchTerm) || 
+                   subject.includes(currentSearchTerm) || 
+                   category.includes(currentSearchTerm);
+          });
+
+          // Hiển thị số kết quả
+          const countEl = document.getElementById("search-count");
+          countEl.textContent = `${filteredDocs.length} kết quả`;
+          countEl.classList.add('show');
+        }
+
+        renderDocs(filteredDocs);
+      }
+
+      function clearSearch() {
+        document.getElementById("doc-search").value = '';
+        document.getElementById("search-clear").classList.remove('show');
+        document.getElementById("search-count").classList.remove('show');
+        currentSearchTerm = '';
+        filteredDocs = [...allCurrentDocs];
+        renderDocs(filteredDocs);
+      }
+
+      function highlightText(text, searchTerm) {
+        if (!searchTerm) return text;
+        
+        const regex = new RegExp(`(${searchTerm})`, 'gi');
+        return text.replace(regex, '<span class="highlight">$1</span>');
+      }
+
       async function fetchDocs() {
         try {
           const res = await fetch("/api/documents");
           const data = await res.json();
 
+          // Lọc và sắp xếp dữ liệu
           allCurrentDocs = data.filter((d) => {
             if (cat === "toeic" || cat === "ielts") return d.category === cat;
             return d.category === cat && d.subject === currentSub;
-          });
-          renderDocs(allCurrentDocs);
+          }).sort((a, b) => a.title.localeCompare(b.title)); // Sắp xếp theo tên
+
+          filteredDocs = [...allCurrentDocs];
+          renderDocs(filteredDocs);
         } catch (err) {
           console.error("Lỗi tải bài:", err);
+          showErrorState();
         }
+      }
+
+      function showErrorState() {
+        const listArea = document.getElementById("doc-list");
+        listArea.innerHTML = `
+          <div class="empty-state">
+            <img src="https://cdn-icons-png.flaticon.com/512/7486/7486754.png" class="empty-icon" alt="error">
+            <p class="empty-text">
+              Có lỗi xảy ra khi tải dữ liệu.<br>
+              Vui lòng thử lại sau!
+            </p>
+          </div>`;
       }
 
       async function renderDocs(list) {
         const listArea = document.getElementById("doc-list");
+        
+        // Xóa nội dung cũ để tránh lặp lại
         listArea.innerHTML = "";
 
-        // --- TRƯỜNG HỢP TRỐNG (EMPTY STATE) ---
+        // --- TRƯỜNG HỢP TRỐNG ---
         if (list.length === 0) {
-          // Sử dụng hình ảnh minh họa folder trống sạch sẽ, hiện đại
+          const emptyMessage = currentSearchTerm 
+            ? `Không tìm thấy tài liệu nào với từ khóa "<strong>${currentSearchTerm}</strong>"`
+            : `Chưa có tài liệu nào cho môn ${currentSub}`;
+            
           listArea.innerHTML = `
-                    <div class="empty-state">
-                        <img src="https://cdn-icons-png.flaticon.com/512/7486/7486744.png" class="empty-icon" alt="empty">
-                        <p class="empty-text">
-                            Chưa có tài liệu nào cho môn ${currentSub}.<br>
-                            Hãy quay lại sau bạn nhé!
-                        </p>
-                    </div>`;
+            <div class="empty-state">
+              <img src="https://cdn-icons-png.flaticon.com/512/7486/7486744.png" class="empty-icon" alt="empty">
+              <p class="empty-text">
+                ${emptyMessage}<br>
+                ${currentSearchTerm ? 'Thử tìm kiếm với từ khóa khác!' : 'Hãy quay lại sau bạn nhé!'}
+              </p>
+            </div>`;
           return;
         }
 
+        // Lấy danh sách đã lưu
         const account = localStorage.getItem("user");
         let savedIds = [];
         if (account) {
@@ -451,30 +720,49 @@
           }
         }
 
-        // --- RENDER DANH SÁCH (LIST VIEW) ---
-        list.forEach((item) => {
+        // Render từng item với hiệu ứng stagger
+        list.forEach((item, index) => {
           const isSaved = savedIds.includes(Number(item.id));
-          // Sử dụng icon Folder 3D đồng bộ cho chuyên nghiệp
-          const defaultIcon =
-            "https://cdn-icons-png.flaticon.com/512/9431/9431222.png"; // Icon folder 3D đẹp
-
-          listArea.innerHTML += `
-    <div class="doc-card">
-        <div class="doc-content">
-            <h3 class="doc-title">${item.title}</h3>
-        </div>
-
-        <div class="doc-side-actions">
-            <div class="save-btn-top" onclick="toggleSave('${item.id}', this)" 
-                 style="color: ${isSaved ? "#ff4757" : "#dcdde1"};">
-                 ${isSaved ? "❤️" : "🤍"}
+          const highlightedTitle = highlightText(item.title, currentSearchTerm);
+          
+          const cardElement = document.createElement('div');
+          cardElement.className = 'doc-card';
+          cardElement.style.animationDelay = `${index * 50}ms`;
+          cardElement.onclick = () => openDocument(item.link);
+          
+          cardElement.innerHTML = `
+            <div class="doc-content">
+              <div class="doc-icon">📄</div>
+              <div class="doc-info">
+                <h3 class="doc-title">${highlightedTitle}</h3>
+                <div class="doc-meta">
+                  <span>${item.subject || 'Tài liệu'}</span>
+                  <span>•</span>
+                  <span>Cập nhật gần đây</span>
+                </div>
+              </div>
             </div>
-            <a href="${item.link}" target="_blank" class="btn-open-compact">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-            </a>
-        </div>
-    </div>`;
+            <div class="doc-actions">
+              <button class="save-btn ${isSaved ? 'saved' : ''}" 
+                      onclick="event.stopPropagation(); toggleSave('${item.id}', this)">
+                ${isSaved ? '❤️' : '🤍'}
+              </button>
+              <div class="open-indicator">
+                <span>Mở</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                </svg>
+              </div>
+            </div>
+          `;
+          
+          listArea.appendChild(cardElement);
         });
+      }
+
+      function openDocument(link) {
+        // Mở tài liệu trong tab mới với hiệu ứng
+        window.open(link, '_blank', 'noopener,noreferrer');
       }
 
       async function toggleSave(docId, element) {
@@ -491,23 +779,15 @@
             body: JSON.stringify({ account: account, docId: Number(docId) }),
           });
           const result = await response.json();
+          
           if (result.success) {
             element.innerHTML = result.isSaved ? "❤️" : "🤍";
-            element.style.color = result.isSaved ? "#ff4757" : "#dcdde1";
+            element.classList.toggle('saved', result.isSaved);
           }
         } catch (err) {
           console.error("Lỗi server:", err);
+          alert("Có lỗi xảy ra, vui lòng thử lại!");
         }
-      }
-
-      function filterDocs() {
-        const keyword = document
-          .getElementById("doc-search")
-          .value.toLowerCase();
-        const result = allCurrentDocs.filter((doc) =>
-          doc.title.toLowerCase().includes(keyword)
-        );
-        renderDocs(result);
       }
 
       function changeSub(name, btn) {
@@ -516,7 +796,9 @@
           .querySelectorAll(".sub-btn")
           .forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
-        document.getElementById("doc-search").value = "";
+        
+        // Reset tìm kiếm khi đổi môn
+        clearSearch();
         fetchDocs();
       }
 
@@ -526,6 +808,8 @@
           .scrollBy({ left: offset, behavior: "smooth" });
       }
 
+      // Khởi tạo
+      setupSearch();
       fetchDocs();
     </script>
   </body>
